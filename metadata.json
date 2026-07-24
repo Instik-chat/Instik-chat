@@ -1,0 +1,6 @@
+{
+  "name": "INSTIK CHAT",
+  "description": "Real-time social media platform with messaging, reels, stories, video calls, admin management, and original green leaf branding.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
