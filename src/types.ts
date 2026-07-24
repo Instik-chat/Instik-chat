@@ -5,6 +5,7 @@ export interface User {
   email: string;
   phone?: string;
   avatar: string;
+  banner?: string;
   bio?: string;
   isPrivate: boolean;
   isVerified?: boolean;
@@ -12,6 +13,8 @@ export interface User {
   customBadgeIcon?: string;
   followersCount: number;
   followingCount: number;
+  followers?: string[];
+  following?: string[];
   postsCount: number;
   reelsCount: number;
   createdAt: string;
@@ -19,7 +22,7 @@ export interface User {
   isSuspended?: boolean;
   lastSeen?: string;
   onlineStatus?: 'online' | 'offline';
-  links?: ProfileLink[];
+  links?: (ProfileLink | string)[];
 }
 
 export interface ProfileLink {

@@ -120,8 +120,8 @@ export const AdminDashboard: React.FC = () => {
   };
 
   const filteredUsers = users.filter((u) =>
-    u.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    u.fullName.toLowerCase().includes(searchQuery.toLowerCase())
+    (u.username || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (u.fullName || '').toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (

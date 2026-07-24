@@ -64,7 +64,10 @@ export const ProfileScreen: React.FC = () => {
     return <div className="text-center py-12 text-slate-500 text-xs">Loading profile...</div>;
   }
 
-  const isFollowing = currentUser ? profileUser.followers.includes(currentUser.id) : false;
+  const followersList = profileUser.followers || [];
+  const followingList = profileUser.following || [];
+  const linksList = profileUser.links || [];
+  const isFollowing = currentUser ? followersList.includes(currentUser.id) : false;
 
   return (
     <div className="w-full max-w-lg mx-auto pb-24 text-white">
@@ -104,7 +107,8 @@ export const ProfileScreen: React.FC = () => {
                   setEditBio(profileUser.bio || '');
                   setEditAvatar(profileUser.avatar);
                   setEditBanner(profileUser.banner || '');
-                  setEditLink(profileUser.links[0] || '');
+                  const firstL = linksList[0];
+                  setEditLink(typeof firstL === 'string' ? firstL : (firstL as any)?.url || '');
                   setShowEditModal(true);
                 }}
                 className="px-4 py-2 bg-[#121212] border border-[#1F1F1F] rounded-2xl text-xs font-bold text-gray-200 hover:text-white hover:bg-[#1A1A1A] flex items-center gap-1.5 transition-colors"
@@ -134,11 +138,16 @@ export const ProfileScreen: React.FC = () => {
 
         {profileUser.bio && <p className="text-xs text-gray-300 mt-2 leading-relaxed">{profileUser.bio}</p>}
 
-        {profileUser.links.length > 0 && (
+        {linksList.length > 0 && (
           <div className="flex items-center gap-1 text-xs text-sky-400 mt-2 font-medium">
             <LinkIcon className="w-3.5 h-3.5" />
-            <a href={profileUser.links[0]} target="_blank" rel="noreferrer" className="hover:underline truncate">
-              {profileUser.links[0]}
+            <a
+              href={typeof linksList[0] === 'string' ? linksList[0] : (linksList[0] as any)?.url}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline truncate"
+            >
+              {typeof linksList[0] === 'string' ? linksList[0] : (linksList[0] as any)?.url || (linksList[0] as any)?.title}
             </a>
           </div>
         )}
@@ -150,11 +159,11 @@ export const ProfileScreen: React.FC = () => {
             <span className="text-gray-400">Posts</span>
           </div>
           <div>
-            <span className="font-extrabold text-white text-sm">{profileUser.followers.length}</span>{' '}
+            <span className="font-extrabold text-white text-sm">{profileUser.followersCount ?? followersList.length}</span>{' '}
             <span className="text-gray-400">Followers</span>
           </div>
           <div>
-            <span className="font-extrabold text-white text-sm">{profileUser.following.length}</span>{' '}
+            <span className="font-extrabold text-white text-sm">{profileUser.followingCount ?? followingList.length}</span>{' '}
             <span className="text-gray-400">Following</span>
           </div>
         </div>
@@ -182,17 +191,20 @@ export const ProfileScreen: React.FC = () => {
 
       {/* Post Grid */}
       <div className="grid grid-cols-3 gap-1 p-1 mt-1">
-        {userPosts.map((post) => (
-          <div key={post.id} className="aspect-square bg-[#0F0F0F] border border-[#1A1A1A] overflow-hidden relative group rounded-lg">
-            {post.mediaUrls.length > 0 ? (
-              <img src={post.mediaUrls[0]} alt="" className="w-full h-full object-cover" />
-            ) : (
-              <div className="w-full h-full p-2 flex items-center justify-center text-[10px] text-gray-400 text-center">
-                {post.caption}
-              </div>
-            )}
-          </div>
-        ))}
+        {(userPosts || []).map((post) => {
+          const media = post.mediaUrls || [];
+          return (
+            <div key={post.id} className="aspect-square bg-[#0F0F0F] border border-[#1A1A1A] overflow-hidden relative group rounded-lg">
+              {media.length > 0 ? (
+                <img src={media[0]} alt="" className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full p-2 flex items-center justify-center text-[10px] text-gray-400 text-center">
+                  {post.caption}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {/* Edit Profile Modal */}

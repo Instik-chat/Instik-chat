@@ -57,10 +57,14 @@ export const ReelsFeed: React.FC = () => {
     setReels((prev) =>
       prev.map((r) => {
         if (r.id === reelId) {
-          const hasLiked = r.likes.includes(currentUser.id);
+          const likesArr = r.likes || (r as any).likedBy || [];
+          const hasLiked = likesArr.includes(currentUser.id);
+          const newLikes = hasLiked ? likesArr.filter((id) => id !== currentUser.id) : [...likesArr, currentUser.id];
           return {
             ...r,
-            likes: hasLiked ? r.likes.filter((id) => id !== currentUser.id) : [...r.likes, currentUser.id],
+            likes: newLikes,
+            likedBy: newLikes,
+            likesCount: newLikes.length,
           };
         }
         return r;
@@ -99,16 +103,16 @@ export const ReelsFeed: React.FC = () => {
               className="flex flex-col items-center gap-1 text-white hover:text-rose-400 transition-colors group"
             >
               <div className="p-3 bg-black/50 rounded-full backdrop-blur-md border border-white/10">
-                <Heart className={`w-6 h-6 ${currentUser && currentReel.likes.includes(currentUser.id) ? 'fill-rose-500 text-rose-500' : ''}`} />
+                <Heart className={`w-6 h-6 ${currentUser && (currentReel.likes || (currentReel as any).likedBy || []).includes(currentUser.id) ? 'fill-rose-500 text-rose-500' : ''}`} />
               </div>
-              <span className="text-xs font-bold">{currentReel.likes.length}</span>
+              <span className="text-xs font-bold">{currentReel.likesCount ?? (currentReel.likes || (currentReel as any).likedBy || []).length}</span>
             </button>
 
             <button className="flex flex-col items-center gap-1 text-white hover:text-[#34D399] transition-colors group">
               <div className="p-3 bg-black/50 rounded-full backdrop-blur-md border border-white/10">
                 <MessageCircle className="w-6 h-6" />
               </div>
-              <span className="text-xs font-bold">{currentReel.comments.length}</span>
+              <span className="text-xs font-bold">{(currentReel.comments || []).length}</span>
             </button>
 
             <button className="flex flex-col items-center gap-1 text-white hover:text-[#34D399] transition-colors group">

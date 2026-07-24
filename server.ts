@@ -1042,7 +1042,7 @@ app.get("/api/search", async (req, res) => {
           });
         }
       } catch (err) {
-        console.error("Gemini Search Grounding Error:", err);
+        console.warn("Gemini Search Grounding notice:", (err as any)?.message || err);
       }
     }
 

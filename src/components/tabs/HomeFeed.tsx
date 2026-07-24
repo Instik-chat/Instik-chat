@@ -32,10 +32,14 @@ export const HomeFeed: React.FC = () => {
       setPosts((prev) =>
         prev.map((p) => {
           if (p.id === postId) {
-            const hasLiked = p.likes.includes(currentUser.id);
+            const likesArr = p.likes || (p as any).likedBy || [];
+            const hasLiked = likesArr.includes(currentUser.id);
+            const newLikes = hasLiked ? likesArr.filter((id) => id !== currentUser.id) : [...likesArr, currentUser.id];
             return {
               ...p,
-              likes: hasLiked ? p.likes.filter((id) => id !== currentUser.id) : [...p.likes, currentUser.id],
+              likes: newLikes,
+              likedBy: newLikes,
+              likesCount: newLikes.length,
             };
           }
           return p;
@@ -51,10 +55,12 @@ export const HomeFeed: React.FC = () => {
       setPosts((prev) =>
         prev.map((p) => {
           if (p.id === postId) {
-            const hasSaved = p.savedBy.includes(currentUser.id);
+            const savedArr = p.savedBy || [];
+            const hasSaved = savedArr.includes(currentUser.id);
+            const newSaved = hasSaved ? savedArr.filter((id) => id !== currentUser.id) : [...savedArr, currentUser.id];
             return {
               ...p,
-              savedBy: hasSaved ? p.savedBy.filter((id) => id !== currentUser.id) : [...p.savedBy, currentUser.id],
+              savedBy: newSaved,
             };
           }
           return p;
@@ -68,7 +74,7 @@ export const HomeFeed: React.FC = () => {
     const res = await addComment(postId, currentUser.id, commentText.trim());
     if (res.success && res.comment) {
       setPosts((prev) =>
-        prev.map((p) => (p.id === postId ? { ...p, comments: [...p.comments, res.comment] } : p))
+        prev.map((p) => (p.id === postId ? { ...p, comments: [...(p.comments || []), res.comment] } : p))
       );
       setCommentText('');
     }
@@ -89,8 +95,14 @@ export const HomeFeed: React.FC = () => {
       {/* Main Feed Posts */}
       <div className="flex flex-col gap-6 mt-4 px-2 sm:px-0">
         {posts.map((post) => {
-          const isLiked = currentUser ? post.likes.includes(currentUser.id) : false;
-          const isSaved = currentUser ? post.savedBy.includes(currentUser.id) : false;
+          const likesArr = post.likes || (post as any).likedBy || [];
+          const savedArr = post.savedBy || [];
+          const commentsArr = post.comments || [];
+          const hashtagsArr = post.hashtags || [];
+          const mediaUrlsArr = post.mediaUrls || [];
+
+          const isLiked = currentUser ? likesArr.includes(currentUser.id) : false;
+          const isSaved = currentUser ? savedArr.includes(currentUser.id) : false;
 
           return (
             <article key={post.id} className="bg-[#0F0F0F] border border-[#1A1A1A] rounded-2xl overflow-hidden shadow-xl">
@@ -123,10 +135,10 @@ export const HomeFeed: React.FC = () => {
               </div>
 
               {/* Media Display */}
-              {post.mediaUrls.length > 0 && (
+              {mediaUrlsArr.length > 0 && (
                 <div className="w-full bg-[#121212] aspect-square sm:aspect-[4/3] overflow-hidden flex items-center justify-center border-b border-[#1A1A1A]">
                   <img
-                    src={post.mediaUrls[0]}
+                    src={mediaUrlsArr[0]}
                     alt="Post Media"
                     className="w-full h-full object-cover"
                   />
@@ -144,7 +156,7 @@ export const HomeFeed: React.FC = () => {
                       }`}
                     >
                       <Heart className={`w-6 h-6 ${isLiked ? 'fill-rose-500' : ''}`} />
-                      <span className="text-xs font-bold">{post.likes.length}</span>
+                      <span className="text-xs font-bold">{post.likesCount ?? likesArr.length}</span>
                     </button>
 
                     <button
@@ -152,7 +164,7 @@ export const HomeFeed: React.FC = () => {
                       className="flex items-center gap-2 text-gray-400 hover:text-[#34D399] transition-colors group"
                     >
                       <MessageCircle className="w-6 h-6" />
-                      <span className="text-xs font-bold">{post.comments.length}</span>
+                      <span className="text-xs font-bold">{commentsArr.length}</span>
                     </button>
 
                     <button className="text-gray-400 hover:text-[#34D399] transition-colors">
@@ -174,9 +186,9 @@ export const HomeFeed: React.FC = () => {
                   <span>{post.caption}</span>
                 </div>
 
-                {post.hashtags.length > 0 && (
+                {hashtagsArr.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mt-1">
-                    {post.hashtags.map((tag, i) => (
+                    {hashtagsArr.map((tag, i) => (
                       <span key={i} className="text-[11px] font-semibold text-[#34D399]">
                         {tag}
                       </span>
@@ -192,7 +204,7 @@ export const HomeFeed: React.FC = () => {
                 {activeCommentPostId === post.id && (
                   <div className="mt-3 pt-3 border-t border-[#1A1A1A] flex flex-col gap-2">
                     <div className="max-h-40 overflow-y-auto flex flex-col gap-2 pr-1">
-                      {post.comments.map((c) => (
+                      {commentsArr.map((c) => (
                         <div key={c.id} className="text-xs bg-[#121212] p-2.5 rounded-xl border border-[#1F1F1F]">
                           <span className="font-bold text-[#34D399] mr-1.5">{c.userName}:</span>
                           <span className="text-gray-200">{c.text}</span>

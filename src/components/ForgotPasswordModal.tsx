@@ -33,7 +33,7 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({ onClos
     if (res.success && res.userId) {
       setUserId(res.userId);
       setSuccessMsg(res.message || 'Verification code sent!');
-      if (res.message && res.message.includes('Demo Code:')) {
+      if (res.message?.includes('Demo Code:')) {
         const parts = res.message.split('Demo Code:');
         if (parts[1]) setDemoCode(parts[1].trim().replace(')', ''));
       }

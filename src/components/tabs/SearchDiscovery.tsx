@@ -25,7 +25,13 @@ export const SearchDiscovery: React.FC = () => {
     setLoading(true);
     const res = await searchContent(query.trim(), mode);
     setLoading(false);
-    setResults(res);
+    setResults({
+      users: Array.isArray(res?.users) ? res.users : [],
+      posts: Array.isArray(res?.posts) ? res.posts : [],
+      reels: Array.isArray(res?.reels) ? res.reels : [],
+      hashtags: Array.isArray(res?.hashtags) ? res.hashtags : [],
+      google: Array.isArray(res?.google) ? res.google : [],
+    });
   };
 
   return (
@@ -86,12 +92,12 @@ export const SearchDiscovery: React.FC = () => {
       {!loading && (
         <div className="flex flex-col gap-6 mt-4">
           {/* Google Grounding Results */}
-          {results.google.length > 0 && (
+          {(results?.google || []).length > 0 && (
             <div className="flex flex-col gap-3">
               <h3 className="text-xs font-black uppercase tracking-wider text-sky-400 flex items-center gap-1.5">
                 <Globe className="w-4 h-4" /> Live Google Web Grounding Results
               </h3>
-              {results.google.map((g, idx) => (
+              {(results.google || []).map((g, idx) => (
                 <a
                   key={idx}
                   href={g.url}
@@ -110,10 +116,10 @@ export const SearchDiscovery: React.FC = () => {
           )}
 
           {/* Users Results */}
-          {results.users.length > 0 && (
+          {(results?.users || []).length > 0 && (
             <div className="flex flex-col gap-2">
               <h3 className="text-xs font-black uppercase tracking-wider text-[#34D399]">People</h3>
-              {results.users.map((u) => (
+              {(results.users || []).map((u) => (
                 <div
                   key={u.id}
                   onClick={() => {
@@ -136,11 +142,11 @@ export const SearchDiscovery: React.FC = () => {
           )}
 
           {/* Reels Results */}
-          {results.reels.length > 0 && (
+          {(results?.reels || []).length > 0 && (
             <div className="flex flex-col gap-2">
               <h3 className="text-xs font-black uppercase tracking-wider text-[#34D399]">Trending Reels</h3>
               <div className="grid grid-cols-2 gap-2">
-                {results.reels.map((r) => (
+                {(results.reels || []).map((r) => (
                   <div key={r.id} className="relative aspect-[3/4] bg-[#0F0F0F] rounded-2xl overflow-hidden border border-[#1A1A1A]">
                     <video src={r.videoUrl} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent p-2 flex flex-col justify-end">
