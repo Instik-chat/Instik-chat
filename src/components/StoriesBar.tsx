@@ -32,28 +32,28 @@ export const StoriesBar: React.FC<StoriesBarProps> = ({ stories, onRefresh }) =>
   const activeStory = activeStoryIndex !== null ? stories[activeStoryIndex] : null;
 
   return (
-    <div className="w-full py-3 px-2 border-b border-slate-900 bg-slate-950/50">
-      <div className="flex items-center gap-3 overflow-x-auto scrollbar-none px-2">
+    <div className="w-full py-3 px-2 border-b border-[#1A1A1A] bg-[#050505]">
+      <div className="flex items-center gap-4 overflow-x-auto scrollbar-none px-2">
         {/* Your Story / Add Story Button */}
-        <div className="flex flex-col items-center gap-1 shrink-0">
+        <div className="flex flex-col items-center gap-1.5 shrink-0">
           <button
             onClick={() => setShowUploadModal(true)}
-            className="relative w-16 h-16 rounded-full p-0.5 bg-gradient-to-tr from-emerald-500 to-teal-400 group cursor-pointer"
+            className="relative w-16 h-16 rounded-full p-[2px] border-2 border-[#34D399] group cursor-pointer"
           >
-            <div className="w-full h-full rounded-full bg-slate-950 p-0.5 relative overflow-hidden">
+            <div className="w-full h-full rounded-full bg-[#121212] p-0.5 relative overflow-hidden flex items-center justify-center">
               <img
                 src={currentUser?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'}
                 alt="Your avatar"
                 className="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform"
               />
-              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <div className="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-bold">
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                <div className="w-6 h-6 rounded-full bg-[#34D399] text-black flex items-center justify-center font-bold">
                   <Plus className="w-4 h-4 stroke-[3]" />
                 </div>
               </div>
             </div>
           </button>
-          <span className="text-[11px] text-slate-300 font-medium">Your story</span>
+          <span className="text-[10px] text-gray-400 font-medium">Your Story</span>
         </div>
 
         {/* User Stories */}
@@ -61,16 +61,16 @@ export const StoriesBar: React.FC<StoriesBarProps> = ({ stories, onRefresh }) =>
           <div
             key={story.id}
             onClick={() => setActiveStoryIndex(idx)}
-            className="flex flex-col items-center gap-1 shrink-0 cursor-pointer"
+            className="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer"
           >
-            <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-tr from-emerald-400 via-teal-500 to-emerald-600 shadow-md shadow-emerald-950/40 hover:scale-105 transition-transform">
+            <div className="w-16 h-16 rounded-full p-[2px] border-2 border-[#34D399] hover:scale-105 transition-transform">
               <img
                 src={story.userAvatar}
                 alt={story.userName}
-                className="w-full h-full rounded-full object-cover p-0.5 bg-slate-950"
+                className="w-full h-full rounded-full object-cover p-0.5 bg-[#121212]"
               />
             </div>
-            <span className="text-[11px] text-slate-300 font-medium max-w-[64px] truncate">
+            <span className="text-[10px] text-white font-medium max-w-[64px] truncate">
               {story.userName}
             </span>
           </div>
@@ -80,21 +80,21 @@ export const StoriesBar: React.FC<StoriesBarProps> = ({ stories, onRefresh }) =>
       {/* Upload Story Modal */}
       {showUploadModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="relative w-full max-w-sm bg-slate-900 border border-emerald-500/20 rounded-2xl p-5 text-white">
+          <div className="relative w-full max-w-sm bg-[#0F0F0F] border border-[#1A1A1A] rounded-2xl p-5 text-white">
             <button
               onClick={() => setShowUploadModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white"
+              className="absolute top-4 right-4 text-gray-400 hover:text-white"
             >
               <X className="w-5 h-5" />
             </button>
-            <h3 className="text-lg font-bold text-emerald-400 mb-3">Add to Story</h3>
+            <h3 className="text-lg font-bold text-[#34D399] mb-3">Add to Story</h3>
             <form onSubmit={handleCreateStory} className="flex flex-col gap-3">
               <input
                 type="text"
                 value={newStoryUrl}
                 onChange={(e) => setNewStoryUrl(e.target.value)}
                 placeholder="Paste Image URL or select asset..."
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none focus:border-emerald-500"
+                className="w-full px-3 py-2 bg-[#121212] border border-[#1F1F1F] rounded-xl text-xs text-white outline-none focus:border-[#34D399]"
                 required
               />
               {newStoryUrl && (
@@ -103,7 +103,7 @@ export const StoriesBar: React.FC<StoriesBarProps> = ({ stories, onRefresh }) =>
               <button
                 type="submit"
                 disabled={uploading}
-                className="py-2.5 bg-emerald-500 text-slate-950 font-bold rounded-xl text-xs hover:brightness-110 disabled:opacity-50"
+                className="py-2.5 bg-[#34D399] text-black font-bold rounded-xl text-xs hover:bg-[#2EB886] disabled:opacity-50"
               >
                 {uploading ? 'Publishing...' : 'Publish Story'}
               </button>
@@ -115,11 +115,11 @@ export const StoriesBar: React.FC<StoriesBarProps> = ({ stories, onRefresh }) =>
       {/* Full Screen Story Viewer */}
       {activeStory && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 text-white animate-fadeIn">
-          <div className="relative w-full max-w-md h-full md:h-[90vh] bg-slate-950 rounded-none md:rounded-3xl overflow-hidden flex flex-col justify-between">
+          <div className="relative w-full max-w-md h-full md:h-[90vh] bg-[#050505] rounded-none md:rounded-3xl overflow-hidden flex flex-col justify-between border border-[#1A1A1A]">
             {/* Top Progress Bar & Header */}
             <div className="absolute top-0 left-0 right-0 z-20 p-4 bg-gradient-to-b from-black/80 to-transparent">
               <div className="w-full h-1 bg-white/20 rounded-full overflow-hidden mb-3">
-                <div className="h-full bg-emerald-400 animate-[storyProgress_5s_linear_forwards]" />
+                <div className="h-full bg-[#34D399] animate-[storyProgress_5s_linear_forwards]" />
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -131,7 +131,7 @@ export const StoriesBar: React.FC<StoriesBarProps> = ({ stories, onRefresh }) =>
                 </div>
                 <button
                   onClick={() => setActiveStoryIndex(null)}
-                  className="p-1 text-slate-300 hover:text-white"
+                  className="p-1 text-gray-300 hover:text-white"
                 >
                   <X className="w-6 h-6" />
                 </button>

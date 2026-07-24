@@ -31,7 +31,7 @@ const AppContent: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white font-sans antialiased selection:bg-emerald-500 selection:text-slate-950">
+    <div className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans antialiased selection:bg-[#34D399] selection:text-black">
       <Navigation onOpenCreatePost={() => setShowCreatePost(true)} unreadCount={1} />
 
       <main className="pt-2">

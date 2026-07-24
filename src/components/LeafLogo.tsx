@@ -20,11 +20,11 @@ export const LeafLogo: React.FC<LeafLogoProps> = ({ size = 'md', showText = fals
 
   return (
     <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
-      <div className={`relative flex items-center justify-center ${dim.icon} rounded-2xl bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-800 p-1.5 shadow-lg shadow-emerald-900/30 border border-emerald-400/30`}>
+      <div className={`relative flex items-center justify-center ${dim.icon} rounded-2xl bg-[#0F0F0F] p-1.5 shadow-lg border border-[#1A1A1A]`}>
         {/* Modern Leaf Symbol Vector */}
         <svg
           viewBox="0 0 100 100"
-          className="w-full h-full text-emerald-100 drop-shadow-md"
+          className="w-full h-full text-[#34D399]"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -60,12 +60,12 @@ export const LeafLogo: React.FC<LeafLogoProps> = ({ size = 'md', showText = fals
             strokeLinecap="round"
           />
           {/* Growth Sparkle Accent */}
-          <circle cx="82" cy="18" r="3" fill="#A7F3D0" />
+          <circle cx="82" cy="18" r="3" fill="#34D399" />
 
           <defs>
             <linearGradient id="leafGradient" x1="15" y1="85" x2="85" y2="15" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#10B981" />
-              <stop offset="0.5" stopColor="#059669" />
+              <stop stopColor="#059669" />
+              <stop offset="0.5" stopColor="#10B981" />
               <stop offset="1" stopColor="#34D399" />
             </linearGradient>
           </defs>
@@ -74,8 +74,8 @@ export const LeafLogo: React.FC<LeafLogoProps> = ({ size = 'md', showText = fals
 
       {showText && (
         <div className="flex flex-col justify-center">
-          <span className={`font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-200 ${dim.text}`}>
-            INSTIK<span className="text-emerald-500 ml-1.5 font-light">CHAT</span>
+          <span className={`font-black tracking-wider text-white ${dim.text}`}>
+            INSTIK<span className="text-[#34D399] ml-1.5 font-light">CHAT</span>
           </span>
         </div>
       )}

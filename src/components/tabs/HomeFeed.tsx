@@ -82,7 +82,7 @@ export const HomeFeed: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto pb-24 text-white">
+    <div className="w-full max-w-lg mx-auto pb-24 text-[#F5F5F5]">
       {/* Stories Bar */}
       <StoriesBar stories={stories} onRefresh={loadFeedData} />
 
@@ -93,9 +93,9 @@ export const HomeFeed: React.FC = () => {
           const isSaved = currentUser ? post.savedBy.includes(currentUser.id) : false;
 
           return (
-            <article key={post.id} className="bg-slate-900/80 border border-slate-800/80 rounded-2xl overflow-hidden shadow-xl">
+            <article key={post.id} className="bg-[#0F0F0F] border border-[#1A1A1A] rounded-2xl overflow-hidden shadow-xl">
               {/* Post Header */}
-              <div className="p-3.5 flex items-center justify-between border-b border-slate-800/50">
+              <div className="p-3.5 flex items-center justify-between border-b border-[#1A1A1A]">
                 <div
                   className="flex items-center gap-3 cursor-pointer"
                   onClick={() => {
@@ -103,19 +103,19 @@ export const HomeFeed: React.FC = () => {
                     setActiveTab('profile');
                   }}
                 >
-                  <img src={post.userAvatar} alt="" className="w-10 h-10 rounded-full object-cover border border-emerald-500/30" />
+                  <img src={post.userAvatar} alt="" className="w-10 h-10 rounded-full object-cover border border-[#34D399]/30" />
                   <div>
-                    <div className="flex items-center text-sm font-bold text-white hover:text-emerald-400">
+                    <div className="flex items-center text-sm font-bold text-white hover:text-[#34D399]">
                       <span>{post.userName}</span>
                       <UserBadge badgeType={post.userBadge} customIconUrl={post.customBadgeIcon} />
                     </div>
-                    <span className="text-[11px] text-slate-400">@{post.userUsername}</span>
+                    <span className="text-[11px] text-gray-400">@{post.userUsername}</span>
                   </div>
                 </div>
 
                 <button
                   onClick={() => setReportModalPostId(post.id)}
-                  className="p-1.5 text-slate-400 hover:text-rose-400 rounded-lg transition-colors"
+                  className="p-1.5 text-gray-500 hover:text-rose-400 rounded-lg transition-colors"
                   title="Report Post"
                 >
                   <MoreHorizontal className="w-5 h-5" />
@@ -124,7 +124,7 @@ export const HomeFeed: React.FC = () => {
 
               {/* Media Display */}
               {post.mediaUrls.length > 0 && (
-                <div className="w-full bg-slate-950 aspect-square sm:aspect-[4/3] overflow-hidden flex items-center justify-center">
+                <div className="w-full bg-[#121212] aspect-square sm:aspect-[4/3] overflow-hidden flex items-center justify-center border-b border-[#1A1A1A]">
                   <img
                     src={post.mediaUrls[0]}
                     alt="Post Media"
@@ -136,11 +136,11 @@ export const HomeFeed: React.FC = () => {
               {/* Actions Bar */}
               <div className="p-3.5 flex flex-col gap-2">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-6">
                     <button
                       onClick={() => handleLike(post.id)}
-                      className={`flex items-center gap-1.5 transition-transform active:scale-125 ${
-                        isLiked ? 'text-rose-500 fill-rose-500' : 'text-slate-300 hover:text-rose-400'
+                      className={`flex items-center gap-2 transition-all group ${
+                        isLiked ? 'text-rose-500 fill-rose-500' : 'text-gray-400 hover:text-rose-500'
                       }`}
                     >
                       <Heart className={`w-6 h-6 ${isLiked ? 'fill-rose-500' : ''}`} />
@@ -149,53 +149,53 @@ export const HomeFeed: React.FC = () => {
 
                     <button
                       onClick={() => setActiveCommentPostId(activeCommentPostId === post.id ? null : post.id)}
-                      className="flex items-center gap-1.5 text-slate-300 hover:text-emerald-400 transition-colors"
+                      className="flex items-center gap-2 text-gray-400 hover:text-[#34D399] transition-colors group"
                     >
                       <MessageCircle className="w-6 h-6" />
                       <span className="text-xs font-bold">{post.comments.length}</span>
                     </button>
 
-                    <button className="text-slate-300 hover:text-emerald-400 transition-colors">
+                    <button className="text-gray-400 hover:text-[#34D399] transition-colors">
                       <Share2 className="w-6 h-6" />
                     </button>
                   </div>
 
                   <button
                     onClick={() => handleSave(post.id)}
-                    className={`transition-colors ${isSaved ? 'text-emerald-400 fill-emerald-400' : 'text-slate-300 hover:text-emerald-400'}`}
+                    className={`transition-colors ${isSaved ? 'text-[#34D399] fill-[#34D399]' : 'text-gray-400 hover:text-[#34D399]'}`}
                   >
-                    <Bookmark className={`w-6 h-6 ${isSaved ? 'fill-emerald-400' : ''}`} />
+                    <Bookmark className={`w-6 h-6 ${isSaved ? 'fill-[#34D399]' : ''}`} />
                   </button>
                 </div>
 
                 {/* Caption & Hashtags */}
-                <div className="text-xs leading-relaxed text-slate-200 mt-1">
-                  <span className="font-bold mr-1.5">{post.userName}</span>
+                <div className="text-xs leading-relaxed text-gray-300 mt-1">
+                  <span className="font-bold text-white mr-1.5">{post.userName}</span>
                   <span>{post.caption}</span>
                 </div>
 
                 {post.hashtags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mt-1">
                     {post.hashtags.map((tag, i) => (
-                      <span key={i} className="text-[11px] font-semibold text-emerald-400">
+                      <span key={i} className="text-[11px] font-semibold text-[#34D399]">
                         {tag}
                       </span>
                     ))}
                   </div>
                 )}
 
-                <div className="text-[10px] text-slate-500 font-mono mt-1">
+                <div className="text-[10px] text-gray-500 font-mono mt-1">
                   {new Date(post.createdAt).toLocaleDateString()}
                 </div>
 
                 {/* Comment Drawer Expand */}
                 {activeCommentPostId === post.id && (
-                  <div className="mt-3 pt-3 border-t border-slate-800 flex flex-col gap-2">
+                  <div className="mt-3 pt-3 border-t border-[#1A1A1A] flex flex-col gap-2">
                     <div className="max-h-40 overflow-y-auto flex flex-col gap-2 pr-1">
                       {post.comments.map((c) => (
-                        <div key={c.id} className="text-xs bg-slate-950/60 p-2 rounded-xl">
-                          <span className="font-bold text-emerald-400 mr-1.5">{c.userName}:</span>
-                          <span className="text-slate-200">{c.text}</span>
+                        <div key={c.id} className="text-xs bg-[#121212] p-2.5 rounded-xl border border-[#1F1F1F]">
+                          <span className="font-bold text-[#34D399] mr-1.5">{c.userName}:</span>
+                          <span className="text-gray-200">{c.text}</span>
                         </div>
                       ))}
                     </div>
@@ -206,11 +206,11 @@ export const HomeFeed: React.FC = () => {
                         value={commentText}
                         onChange={(e) => setCommentText(e.target.value)}
                         placeholder="Add a comment..."
-                        className="flex-1 px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none focus:border-emerald-500"
+                        className="flex-1 px-3 py-2 bg-[#121212] border border-[#1F1F1F] rounded-xl text-xs text-white outline-none focus:border-[#34D399]"
                       />
                       <button
                         onClick={() => handleAddComment(post.id)}
-                        className="px-3 py-2 bg-emerald-500 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center hover:brightness-110"
+                        className="px-3 py-2 bg-[#34D399] text-black font-bold rounded-xl text-xs flex items-center justify-center hover:bg-[#2EB886]"
                       >
                         <Send className="w-3.5 h-3.5" />
                       </button>
@@ -226,15 +226,15 @@ export const HomeFeed: React.FC = () => {
       {/* Report Modal */}
       {reportModalPostId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="bg-slate-900 border border-emerald-500/20 rounded-2xl p-5 w-full max-w-sm text-white">
+          <div className="bg-[#0F0F0F] border border-[#1A1A1A] rounded-2xl p-5 w-full max-w-sm text-white">
             <h3 className="text-sm font-bold text-rose-400 mb-2 flex items-center gap-1.5">
               <AlertTriangle className="w-4 h-4" /> Report Content
             </h3>
-            <p className="text-xs text-slate-400 mb-3">Select why you are reporting this post to INSTIK Administrators:</p>
+            <p className="text-xs text-gray-400 mb-3">Select why you are reporting this post to INSTIK Administrators:</p>
             <select
               value={reportReason}
               onChange={(e) => setReportReason(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white mb-4"
+              className="w-full bg-[#121212] border border-[#1F1F1F] rounded-xl px-3 py-2 text-xs text-white mb-4 outline-none"
             >
               <option value="Spam or misleading">Spam or misleading</option>
               <option value="Hate speech or harassment">Hate speech or harassment</option>
@@ -244,13 +244,13 @@ export const HomeFeed: React.FC = () => {
             <div className="flex gap-2">
               <button
                 onClick={() => setReportModalPostId(null)}
-                className="flex-1 py-2 bg-slate-800 text-slate-300 font-semibold rounded-xl text-xs"
+                className="flex-1 py-2 bg-[#121212] border border-[#1F1F1F] text-gray-300 font-semibold rounded-xl text-xs"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleReport(reportModalPostId)}
-                className="flex-1 py-2 bg-rose-500 text-white font-bold rounded-xl text-xs"
+                className="flex-1 py-2 bg-rose-600 text-white font-bold rounded-xl text-xs hover:bg-rose-700"
               >
                 Submit Report
               </button>

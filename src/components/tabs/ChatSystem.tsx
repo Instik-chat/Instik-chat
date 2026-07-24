@@ -174,15 +174,15 @@ export const ChatSystem: React.FC = () => {
   });
 
   return (
-    <div className="w-full max-w-4xl mx-auto h-[calc(100vh-120px)] my-2 bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden flex flex-col md:flex-row text-white shadow-2xl">
+    <div className="w-full max-w-4xl mx-auto h-[calc(100vh-120px)] my-2 bg-[#0F0F0F] border border-[#1A1A1A] rounded-3xl overflow-hidden flex flex-col md:flex-row text-white shadow-2xl">
       {/* Left Chat List Panel */}
-      <div className={`w-full md:w-80 bg-slate-950 border-r border-slate-800 flex flex-col ${activeChat ? 'hidden md:flex' : 'flex'}`}>
+      <div className={`w-full md:w-80 bg-[#050505] border-r border-[#1A1A1A] flex flex-col ${activeChat ? 'hidden md:flex' : 'flex'}`}>
         {/* Top Header */}
-        <div className="p-4 border-b border-slate-800 flex justify-between items-center">
-          <h2 className="font-black text-lg text-emerald-400">Chats</h2>
+        <div className="p-4 border-b border-[#1A1A1A] flex justify-between items-center">
+          <h2 className="font-black text-xs tracking-widest text-[#34D399] uppercase">Active Chats</h2>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20"
+            className="p-2 rounded-xl bg-[#121212] border border-[#1F1F1F] text-[#34D399] hover:bg-[#1A1A1A]"
             title="Create Group / Channel"
           >
             <Plus className="w-5 h-5" />
@@ -190,34 +190,34 @@ export const ChatSystem: React.FC = () => {
         </div>
 
         {/* Filter Pills */}
-        <div className="flex gap-1.5 p-2 border-b border-slate-800/80 overflow-x-auto scrollbar-none text-[11px] font-semibold">
+        <div className="flex gap-1.5 p-2 border-b border-[#1A1A1A] overflow-x-auto scrollbar-none text-[11px] font-semibold">
           <button
             onClick={() => setFilter('all')}
-            className={`px-3 py-1.5 rounded-xl whitespace-nowrap ${filter === 'all' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-400'}`}
+            className={`px-3 py-1.5 rounded-xl whitespace-nowrap transition-colors ${filter === 'all' ? 'bg-[#34D399] text-black font-bold' : 'bg-[#121212] text-gray-400 hover:text-white'}`}
           >
             All
           </button>
           <button
             onClick={() => setFilter('ai')}
-            className={`px-3 py-1.5 rounded-xl whitespace-nowrap flex items-center gap-1 ${filter === 'ai' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-900 text-emerald-400'}`}
+            className={`px-3 py-1.5 rounded-xl whitespace-nowrap flex items-center gap-1 transition-colors ${filter === 'ai' ? 'bg-[#34D399] text-black font-bold' : 'bg-[#121212] text-[#34D399]'}`}
           >
             <Bot className="w-3 h-3" /> AI Chat
           </button>
           <button
             onClick={() => setFilter('direct')}
-            className={`px-3 py-1.5 rounded-xl whitespace-nowrap ${filter === 'direct' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-400'}`}
+            className={`px-3 py-1.5 rounded-xl whitespace-nowrap transition-colors ${filter === 'direct' ? 'bg-[#34D399] text-black font-bold' : 'bg-[#121212] text-gray-400 hover:text-white'}`}
           >
             Direct
           </button>
           <button
             onClick={() => setFilter('group')}
-            className={`px-3 py-1.5 rounded-xl whitespace-nowrap ${filter === 'group' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-400'}`}
+            className={`px-3 py-1.5 rounded-xl whitespace-nowrap transition-colors ${filter === 'group' ? 'bg-[#34D399] text-black font-bold' : 'bg-[#121212] text-gray-400 hover:text-white'}`}
           >
             Groups
           </button>
           <button
             onClick={() => setFilter('channel')}
-            className={`px-3 py-1.5 rounded-xl whitespace-nowrap ${filter === 'channel' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-400'}`}
+            className={`px-3 py-1.5 rounded-xl whitespace-nowrap transition-colors ${filter === 'channel' ? 'bg-[#34D399] text-black font-bold' : 'bg-[#121212] text-gray-400 hover:text-white'}`}
           >
             Channels
           </button>
@@ -229,18 +229,18 @@ export const ChatSystem: React.FC = () => {
             <div
               key={chat.id}
               onClick={() => setActiveChat(chat)}
-              className={`p-3.5 flex items-center gap-3 cursor-pointer border-b border-slate-900/50 hover:bg-slate-900 transition-colors ${
-                activeChat?.id === chat.id ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500' : ''
+              className={`p-3.5 flex items-center gap-3 cursor-pointer border-b border-[#1A1A1A] hover:bg-[#121212] transition-colors ${
+                activeChat?.id === chat.id ? 'bg-[#121212] border-l-4 border-l-[#34D399]' : ''
               }`}
             >
               <div className="relative">
                 <img
                   src={chat.avatar || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80'}
                   alt=""
-                  className="w-11 h-11 rounded-full object-cover border border-slate-800"
+                  className="w-11 h-11 rounded-full object-cover border border-[#1F1F1F]"
                 />
                 {chat.isAi && (
-                  <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-emerald-500 text-slate-950 rounded-full flex items-center justify-center p-0.5">
+                  <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-[#34D399] text-black rounded-full flex items-center justify-center p-0.5">
                     <Sparkles className="w-3 h-3" />
                   </span>
                 )}
@@ -252,9 +252,9 @@ export const ChatSystem: React.FC = () => {
                     {chat.name}
                     {chat.badge && <UserBadge badgeType={chat.badge} />}
                   </span>
-                  <span className="text-[10px] text-slate-500 font-mono">{chat.lastTime}</span>
+                  <span className="text-[10px] text-gray-500 font-mono">{chat.lastTime}</span>
                 </div>
-                <p className="text-xs text-slate-400 truncate">{chat.lastMessage}</p>
+                <p className="text-xs text-gray-400 truncate">{chat.lastMessage}</p>
               </div>
             </div>
           ))}
@@ -263,20 +263,20 @@ export const ChatSystem: React.FC = () => {
 
       {/* Right Chat Conversation View */}
       {activeChat ? (
-        <div className="flex-1 flex flex-col bg-slate-900">
+        <div className="flex-1 flex flex-col bg-[#0F0F0F]">
           {/* Chat Top Header */}
-          <div className="p-3.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+          <div className="p-3.5 bg-[#050505] border-b border-[#1A1A1A] flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <button onClick={() => setActiveChat(null)} className="md:hidden text-slate-400 hover:text-white">
+              <button onClick={() => setActiveChat(null)} className="md:hidden text-gray-400 hover:text-white">
                 <X className="w-5 h-5" />
               </button>
-              <img src={activeChat.avatar} alt="" className="w-10 h-10 rounded-full object-cover" />
+              <img src={activeChat.avatar} alt="" className="w-10 h-10 rounded-full object-cover border border-[#1F1F1F]" />
               <div>
                 <div className="font-bold text-sm text-white flex items-center gap-1">
                   <span>{activeChat.name}</span>
                   {activeChat.badge && <UserBadge badgeType={activeChat.badge} />}
                 </div>
-                <div className="text-[11px] text-emerald-400">
+                <div className="text-[11px] text-[#34D399]">
                   {activeChat.isAi ? 'Gemini 3.1 AI Engine Active' : 'Online'}
                 </div>
               </div>
@@ -284,11 +284,11 @@ export const ChatSystem: React.FC = () => {
 
             <div className="flex items-center gap-3">
               {activeChat.isAi ? (
-                <div className="flex items-center gap-2 bg-slate-900 border border-emerald-500/30 px-3 py-1 rounded-full text-[11px]">
-                  <span className="text-slate-400">Thinking Mode:</span>
+                <div className="flex items-center gap-2 bg-[#121212] border border-[#1F1F1F] px-3 py-1 rounded-full text-[11px]">
+                  <span className="text-gray-400">Thinking Mode:</span>
                   <button
                     onClick={() => setAiThinkingMode(!aiThinkingMode)}
-                    className={`font-bold ${aiThinkingMode ? 'text-emerald-400' : 'text-slate-500'}`}
+                    className={`font-bold ${aiThinkingMode ? 'text-[#34D399]' : 'text-gray-500'}`}
                   >
                     {aiThinkingMode ? 'ON (Pro)' : 'OFF (Lite)'}
                   </button>
@@ -297,13 +297,13 @@ export const ChatSystem: React.FC = () => {
                 <>
                   <button
                     onClick={() => setActiveCall({ type: 'audio', name: activeChat.name, avatar: activeChat.avatar })}
-                    className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-emerald-400 hover:bg-slate-700"
+                    className="p-2 rounded-xl bg-[#121212] text-gray-300 hover:text-[#34D399] hover:bg-[#1A1A1A]"
                   >
                     <Phone className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => setActiveCall({ type: 'video', name: activeChat.name, avatar: activeChat.avatar })}
-                    className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-emerald-400 hover:bg-slate-700"
+                    className="p-2 rounded-xl bg-[#121212] text-gray-300 hover:text-[#34D399] hover:bg-[#1A1A1A]"
                   >
                     <Video className="w-4 h-4" />
                   </button>
@@ -318,12 +318,12 @@ export const ChatSystem: React.FC = () => {
               const isMe = m.senderId === currentUser?.id;
               return (
                 <div key={m.id} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
-                  <span className="text-[10px] text-slate-500 mb-0.5">{m.senderName}</span>
+                  <span className="text-[10px] text-gray-500 mb-0.5">{m.senderName}</span>
                   <div
                     className={`max-w-[75%] px-4 py-2.5 rounded-2xl text-xs leading-relaxed ${
                       isMe
-                        ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 font-medium rounded-tr-none shadow-md shadow-emerald-950/40'
-                        : 'bg-slate-950 border border-slate-800 text-slate-100 rounded-tl-none'
+                        ? 'bg-[#0F1F18] border border-[#34D399]/30 text-[#F5F5F5] font-medium rounded-tr-none shadow-md'
+                        : 'bg-[#121212] border border-[#1F1F1F] text-gray-200 rounded-tl-none'
                     }`}
                   >
                     {m.content}
@@ -335,8 +335,8 @@ export const ChatSystem: React.FC = () => {
           </div>
 
           {/* Message Input Bar */}
-          <form onSubmit={handleSendMessage} className="p-3 bg-slate-950 border-t border-slate-800 flex items-center gap-2">
-            <button type="button" className="p-2 text-slate-400 hover:text-emerald-400">
+          <form onSubmit={handleSendMessage} className="p-3 bg-[#050505] border-t border-[#1A1A1A] flex items-center gap-2">
+            <button type="button" className="p-2 text-gray-400 hover:text-[#34D399]">
               <Paperclip className="w-5 h-5" />
             </button>
             <input
@@ -344,21 +344,21 @@ export const ChatSystem: React.FC = () => {
               value={messageText}
               onChange={(e) => setMessageText(e.target.value)}
               placeholder={`Message ${activeChat.name}...`}
-              className="flex-1 px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-2xl text-xs text-white outline-none focus:border-emerald-500"
+              className="flex-1 px-4 py-2.5 bg-[#121212] border border-[#1F1F1F] rounded-2xl text-xs text-white outline-none focus:border-[#34D399]"
             />
             <button
               type="submit"
-              className="p-2.5 bg-emerald-500 text-slate-950 font-bold rounded-2xl hover:brightness-110 active:scale-95 transition-all"
+              className="p-2.5 bg-[#34D399] text-black font-bold rounded-2xl hover:bg-[#2EB886] transition-all"
             >
               <Send className="w-4 h-4" />
             </button>
           </form>
         </div>
       ) : (
-        <div className="hidden md:flex flex-1 flex-col items-center justify-center p-8 text-center text-slate-500">
-          <Bot className="w-12 h-12 text-emerald-500/40 mb-3" />
+        <div className="hidden md:flex flex-1 flex-col items-center justify-center p-8 text-center text-gray-500">
+          <Bot className="w-12 h-12 text-[#34D399]/40 mb-3" />
           <h3 className="font-bold text-white mb-1">Select a Chat or Start with INSTIK AI</h3>
-          <p className="text-xs text-slate-400">Send real-time messages, make calls, or create groups.</p>
+          <p className="text-xs text-gray-400">Send real-time messages, make calls, or create groups.</p>
         </div>
       )}
 
@@ -375,29 +375,29 @@ export const ChatSystem: React.FC = () => {
       {/* Group / Channel Creation Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="relative w-full max-w-sm bg-slate-900 border border-emerald-500/20 rounded-2xl p-5 text-white">
+          <div className="relative w-full max-w-sm bg-[#0F0F0F] border border-[#1A1A1A] rounded-2xl p-5 text-white">
             <button
               onClick={() => setShowCreateModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white"
+              className="absolute top-4 right-4 text-gray-400 hover:text-white"
             >
               <X className="w-5 h-5" />
             </button>
-            <h3 className="text-lg font-bold text-emerald-400 mb-3">Create Group or Channel</h3>
+            <h3 className="text-lg font-bold text-[#34D399] mb-3">Create Group or Channel</h3>
             <form onSubmit={handleCreateGroupChannel} className="flex flex-col gap-3">
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Type</label>
-                <div className="flex bg-slate-950 p-1 rounded-xl border border-slate-800">
+                <label className="block text-xs text-gray-400 mb-1">Type</label>
+                <div className="flex bg-[#121212] p-1 rounded-xl border border-[#1F1F1F]">
                   <button
                     type="button"
                     onClick={() => setCreateType('group')}
-                    className={`flex-1 py-1.5 text-xs font-semibold rounded-lg ${createType === 'group' ? 'bg-emerald-500 text-slate-950' : 'text-slate-400'}`}
+                    className={`flex-1 py-1.5 text-xs font-semibold rounded-lg ${createType === 'group' ? 'bg-[#34D399] text-black' : 'text-gray-400'}`}
                   >
                     Group
                   </button>
                   <button
                     type="button"
                     onClick={() => setCreateType('channel')}
-                    className={`flex-1 py-1.5 text-xs font-semibold rounded-lg ${createType === 'channel' ? 'bg-emerald-500 text-slate-950' : 'text-slate-400'}`}
+                    className={`flex-1 py-1.5 text-xs font-semibold rounded-lg ${createType === 'channel' ? 'bg-[#34D399] text-black' : 'text-gray-400'}`}
                   >
                     Channel
                   </button>
@@ -405,20 +405,20 @@ export const ChatSystem: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Name</label>
+                <label className="block text-xs text-gray-400 mb-1">Name</label>
                 <input
                   type="text"
                   value={createName}
                   onChange={(e) => setCreateName(e.target.value)}
                   placeholder="e.g. Green Tech Innovators"
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none"
+                  className="w-full px-3 py-2 bg-[#121212] border border-[#1F1F1F] rounded-xl text-xs text-white outline-none focus:border-[#34D399]"
                   required
                 />
               </div>
 
               <button
                 type="submit"
-                className="py-2.5 bg-emerald-500 text-slate-950 font-bold rounded-xl text-xs hover:brightness-110"
+                className="py-2.5 bg-[#34D399] text-black font-bold rounded-xl text-xs hover:bg-[#2EB886]"
               >
                 Create
               </button>

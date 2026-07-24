@@ -51,16 +51,16 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({ onClose, onPos
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-lg bg-slate-900 border border-emerald-500/20 rounded-3xl p-6 shadow-2xl text-white">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
+      <div className="relative w-full max-w-lg bg-[#0F0F0F] border border-[#1A1A1A] rounded-3xl p-6 shadow-2xl text-white">
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+          className="absolute top-5 right-5 p-2 rounded-full text-gray-400 hover:text-white hover:bg-[#121212] transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
-        <h2 className="text-xl font-bold text-emerald-400 mb-4">Create New Post</h2>
+        <h2 className="text-xs font-black uppercase tracking-widest text-[#34D399] mb-4">Create New Post</h2>
 
         {error && (
           <div className="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2">
@@ -76,24 +76,24 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({ onClose, onPos
               onChange={(e) => setCaption(e.target.value)}
               placeholder="Write a caption..."
               rows={3}
-              className="w-full p-3 bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl text-sm text-white placeholder-slate-600 outline-none resize-none"
+              className="w-full p-3 bg-[#121212] border border-[#1F1F1F] focus:border-[#34D399] rounded-xl text-sm text-white placeholder-gray-500 outline-none resize-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Add Media URL (Photos/Videos)</label>
+            <label className="block text-xs font-semibold text-gray-300 mb-1.5">Add Media URL (Photos/Videos)</label>
             <div className="flex gap-2">
               <input
                 type="text"
                 value={mediaUrlInput}
                 onChange={(e) => setMediaUrlInput(e.target.value)}
                 placeholder="https://images.unsplash.com/..."
-                className="flex-1 px-3 py-2 bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl text-xs text-white placeholder-slate-600 outline-none"
+                className="flex-1 px-3 py-2 bg-[#121212] border border-[#1F1F1F] focus:border-[#34D399] rounded-xl text-xs text-white placeholder-gray-500 outline-none"
               />
               <button
                 type="button"
                 onClick={handleAddMedia}
-                className="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold text-xs rounded-xl flex items-center gap-1"
+                className="px-3 py-2 bg-[#121212] hover:bg-[#1A1A1A] border border-[#1F1F1F] text-[#34D399] font-bold text-xs rounded-xl flex items-center gap-1"
               >
                 <Plus className="w-4 h-4" /> Add
               </button>
@@ -104,12 +104,12 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({ onClose, onPos
           {mediaUrls.length > 0 && (
             <div className="flex gap-2 overflow-x-auto py-2">
               {mediaUrls.map((url, idx) => (
-                <div key={idx} className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-slate-800">
+                <div key={idx} className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-[#1F1F1F]">
                   <img src={url} alt="" className="w-full h-full object-cover" />
                   <button
                     type="button"
                     onClick={() => handleRemoveMedia(idx)}
-                    className="absolute top-1 right-1 bg-black/70 p-1 rounded-full text-white"
+                    className="absolute top-1 right-1 bg-black/80 p-1 rounded-full text-white"
                   >
                     <X className="w-3 h-3" />
                   </button>
@@ -119,15 +119,15 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({ onClose, onPos
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Hashtags (space separated)</label>
+            <label className="block text-xs font-semibold text-gray-300 mb-1.5">Hashtags (space separated)</label>
             <div className="relative">
-              <Hash className="absolute left-3 top-2.5 w-4 h-4 text-emerald-500" />
+              <Hash className="absolute left-3 top-2.5 w-4 h-4 text-[#34D399]" />
               <input
                 type="text"
                 value={hashtagsInput}
                 onChange={(e) => setHashtagsInput(e.target.value)}
                 placeholder="tech leaf nature chat"
-                className="w-full pl-9 pr-3 py-2 bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl text-xs text-white placeholder-slate-600 outline-none"
+                className="w-full pl-9 pr-3 py-2 bg-[#121212] border border-[#1F1F1F] focus:border-[#34D399] rounded-xl text-xs text-white placeholder-gray-500 outline-none"
               />
             </div>
           </div>
@@ -135,7 +135,7 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({ onClose, onPos
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-2 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 font-bold rounded-xl shadow-lg hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50"
+            className="w-full mt-2 py-3 bg-[#34D399] text-black font-bold rounded-xl shadow-lg hover:bg-[#2EB886] transition-all disabled:opacity-50"
           >
             {loading ? 'Publishing...' : 'Share Post'}
           </button>
